@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArraysTraversal.cs" />
-    <Compile Include="CommonR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Traversals\BinaryArrayTraversal.cs" />
     <Compile Include="Traversals\TREXCM.cs" />
