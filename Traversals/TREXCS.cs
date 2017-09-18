@@ -24,6 +24,20 @@ namespace TraversalLib
         }
 
         /// <summary>
+        /// Traversal of single array extention
+        /// </summary>
+        public static void Traversal(this IEnumerable<object> ienumerable, Action<object, int[]> act)
+        {
+            Array array = ienumerable.ToArray();
+
+            int rank = array.Rank;
+            int penatration = 0;
+            int[] coords = new int[rank];
+
+            Recursive(penatration, array, act, coords, rank);
+        }
+
+        /// <summary>
         /// Traversal of single array
         /// </summary>
         public static void RecursiveTraversal(Array ienumerable, Action<object, int[]> act)
