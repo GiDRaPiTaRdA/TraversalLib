@@ -41,11 +41,7 @@ namespace TraversalLib
                 arrays[i] = ienumerable.ElementAt(i).ToArray();
             }
 
-            int rank = arrays[0].Rank;
-            int penatration = 0;
-            int[] coords = new int[rank];
-
-            Recursive(penatration, arrays, act, coords, rank);
+            arrays.Traversal(act);
         }
 
         /// <summary>
