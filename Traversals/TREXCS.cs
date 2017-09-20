@@ -104,7 +104,7 @@ namespace TraversalLib
 
         public static T First<T>(this Array array, Predicate<T> pregicate = null)
         {
-            T first = array.First(pregicate);
+            T first = array.FirstOrDefault(pregicate);
 
             if (first == null)
             {
