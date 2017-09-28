@@ -76,7 +76,7 @@ namespace TraversalLib
 
             foreach (T current in array)
             {
-                if (pregicate?.Invoke(current) ?? true)
+                if (pregicate?.Invoke(current) ?? false)
                 {
                     any = true;
                     break;
@@ -84,6 +84,22 @@ namespace TraversalLib
             }
 
             return any;
+        }
+
+        public static bool All<T>(this Array array, Predicate<T> pregicate = null)
+        {
+            bool all = true;
+
+            foreach (T current in array)
+            {
+                if (!pregicate?.Invoke(current) ?? true)
+                {
+                    all = false;
+                    break;
+                }
+            }
+
+            return all;
         }
 
         public static T FirstOrDefault<T>(this Array array, Predicate<T> pregicate = null)
