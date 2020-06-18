@@ -31,7 +31,7 @@ namespace TraversalLib
             }
         }
 
-        public static void Traversal<T>(this T[,] binaryArray, T[,] mask , Action<T[,], Tuple<int,int>> action)
+        public static T[,] TraversalReceptive<T,TMask>(this T[,] binaryArray, TMask[,] mask, Func<T[,], TMask[,], Tuple<int, int>,T> action)
         {
             int maskLengthAxisX = mask.GetLength(0);
             int maskLengthAxisY = mask.GetLength(1);
@@ -39,24 +39,39 @@ namespace TraversalLib
             int byteStepsAxisX = binaryArray.GetLength(0) - maskLengthAxisX;
             int byteStepsAxisY = binaryArray.GetLength(1) - maskLengthAxisY;
 
+            var analizedField = new T[byteStepsAxisX, byteStepsAxisY];
+
             for (int x = 0; x < byteStepsAxisX; x++)
             {
                 for (int y = 0; y < byteStepsAxisY; y++)
                 {
                     // Initialization of receptive field
-                    var receptiveField = new T[maskLengthAxisX,maskLengthAxisY];
+                    var receptiveField = new T[maskLengthAxisX, maskLengthAxisY];
 
-                    for (int mx = 0; mx < byteStepsAxisX; mx++)
+                    for (int mx = 0; mx < maskLengthAxisX; mx++)
                     {
-                        for (int my = 0; my < byteStepsAxisY; my++)
+                        for (int my = 0; my < maskLengthAxisY; my++)
                         {
                             receptiveField[mx, my] = binaryArray[x + mx, y + my];
                         }
                     }
 
-                    action.Invoke(receptiveField, new Tuple<int,int>(x, y));
+                    // Invoking analization function
+                    for (int mx = 0; mx < byteStepsAxisX; mx++)
+                    {
+                        for (int my = 0; my < byteStepsAxisY; my++)
+                        {
+                            analizedField[mx,my] = action.Invoke(receptiveField, mask, new Tuple<int, int>(x, y));
+                        }
+                    }
+
+
+                   
                 }
             }
+
+            return analizedField;
+
         }
 
     }
